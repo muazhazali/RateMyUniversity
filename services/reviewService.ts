@@ -60,7 +60,7 @@ export class reviewsService {
     try {
       const supabase = await createClient();
 
-      const { data, error } = supabase
+      const { data, error } = await supabase
         .from("reviews")
         .select("id")
         .eq("user_id", userId)
