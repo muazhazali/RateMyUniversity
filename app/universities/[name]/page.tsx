@@ -13,7 +13,6 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { reviewsService } from "@/services/reviewService";
 
 interface PageProps {
   params: Promise<{

@@ -1,9 +1,8 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { CheckCircle2Icon } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 
 import { useSearchParams } from "next/navigation";
@@ -15,7 +14,7 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<"form">) {
   const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [, setError] = useState<string | null>(null);
 
   const supabase = createClient();
 

@@ -1,8 +1,6 @@
 import { Subject } from "@/types/university";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { PenTool } from "lucide-react";
 
 interface SubjectDetailsProps {
   subject: Subject;
@@ -72,7 +70,7 @@ export function SubjectDetails({ subject }: SubjectDetailsProps) {
             <p className="leading-7 [&:not(:first-child)]:mt-2">
               {subject.description}
             </p>
-            </div>
+          </div>
         )}
       </CardContent>
     </Card>

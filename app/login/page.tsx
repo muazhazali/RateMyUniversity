@@ -1,6 +1,8 @@
 import { GalleryVerticalEnd } from "lucide-react";
 
 import { LoginForm } from "@/components/login-form";
+import Image from "next/image";
+import { Suspense } from "react";
 
 export default function LoginPage() {
   return (
@@ -16,12 +18,14 @@ export default function LoginPage() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-sm">
-            <LoginForm />
+            <Suspense>
+              <LoginForm />
+            </Suspense>
           </div>
         </div>
       </div>
       <div className="bg-muted relative hidden lg:block">
-        <img
+        <Image
           src="/loginimage.jpg"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"

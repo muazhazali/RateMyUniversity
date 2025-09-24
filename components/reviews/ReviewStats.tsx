@@ -1,13 +1,7 @@
 "use client";
 
 import { ReviewStats } from "@/types/university";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Rating, RatingButton } from "@/components/ui/shadcn-io/rating";
 import {
   ChartConfig,
