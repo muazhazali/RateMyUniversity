@@ -14,7 +14,7 @@ export function SubjectDetails({ subject, universityShortName }: SubjectDetailsP
   return (
     <Card className="mb-8 shadow-none rounded-none border-none pl-0">
       <CardHeader>
-        <div className="flex items-start justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between">
           <div>
             <h1 className="scroll-m-20 text-left text-4xl font-extrabold tracking-tight text-balance">
               {subject.code}
@@ -23,7 +23,7 @@ export function SubjectDetails({ subject, universityShortName }: SubjectDetailsP
               {subject.name}
             </h2>
           </div>
-          <Link href={`/universities/${universityShortName}/${subject.code}/write-review`}>
+          <Link href={`/universities/${universityShortName}/${subject.code}/write-review`} className="mt-4 sm:mt-0">
             <RippleButton variant="default">
               <PenTool size={16} />
               Write a Review
