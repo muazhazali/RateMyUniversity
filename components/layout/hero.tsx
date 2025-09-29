@@ -60,7 +60,6 @@ const words = ["anonymously", "honestly", "truthfully"];
 
 const Hero = () => (
   <div className="flex flex-col gap-16 px-8 py-24 text-center">
-    <BackgroundBeams className="absolute inset-0" />
     <div className="flex flex-col items-center justify-center gap-8">
       <Link href="#">
         <Announcement>
