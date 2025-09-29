@@ -64,12 +64,16 @@ export class SubjectService {
       // Apply sorting
       switch (filters?.sortBy) {
         case "highest_rating":
-          // With 999 for no reviews, they naturally go to the end when sorting desc
-          query = query.order("average_rating", { ascending: false });
+          // Filter out subjects with 999 (no reviews), then sort by rating desc
+          query = query
+            .not("average_rating", "eq", 999)
+            .order("average_rating", { ascending: false });
           break;
         case "lowest_rating":
-          // With 999 for no reviews, they naturally go to the end when sorting asc
-          query = query.order("average_rating", { ascending: true });
+          // Filter out subjects with 999 (no reviews), then sort by rating asc
+          query = query
+            .not("average_rating", "eq", 999)
+            .order("average_rating", { ascending: true });
           break;
         case "most_reviewed":
           query = query.order("review_count", { ascending: false });

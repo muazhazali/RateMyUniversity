@@ -34,7 +34,7 @@ export default async function SubjectsPage({
 }: PageProps) {
   const { name } = await params;
   const { page, faculty, category, search, sort } = await searchParams;
-  const currentPage = parseInt(page || "1", 12);
+  const currentPage = parseInt(page || "1", 10);
 
   const university = await UniversityService.getUniversityByName(name);
 
