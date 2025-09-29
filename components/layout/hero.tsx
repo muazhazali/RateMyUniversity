@@ -13,12 +13,7 @@ import {
   AnnouncementTag,
   AnnouncementTitle,
 } from "@/components/ui/shadcn-io/announcement";
-import {
-  Marquee,
-  MarqueeContent,
-  MarqueeFade,
-  MarqueeItem,
-} from "@/components/ui/shadcn-io/marquee";
+import { BackgroundBeams } from "../ui/shadcn-io/background-beams";
 import { Button } from "@/components/ui/button";
 import { FlipWords } from "@/components/ui/shadcn-io/flip-words";
 
@@ -65,6 +60,7 @@ const words = ["anonymously", "honestly", "truthfully"];
 
 const Hero = () => (
   <div className="flex flex-col gap-16 px-8 py-24 text-center">
+    <BackgroundBeams className="absolute inset-0" />
     <div className="flex flex-col items-center justify-center gap-8">
       <Link href="#">
         <Announcement>

@@ -50,6 +50,7 @@
     boxShadow: 0 0 0 8px var(--pulse-color);
     }
   }
+  --animate-spin: spin 2s linear infinite
 }
 
 :root {
