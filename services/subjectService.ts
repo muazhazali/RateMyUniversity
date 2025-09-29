@@ -5,6 +5,7 @@ interface SubjectFilters {
   facultyId?: string;
   categoryCode?: string;
   searchTerm?: string;
+  sortBy?: "default" | "highest_rating" | "lowest_rating" | "most_reviewed";
 }
 
 interface PaginatedSubjects {
@@ -33,11 +34,19 @@ export class SubjectService {
       const from = (page - 1) * limit;
       const to = from + limit - 1;
 
+      // Query the view instead of the table
       let query = supabase
-        .from("subjects")
-        .select(`*, faculties(id, name, short_name)`, { count: "exact" })
+        .from("subjects_with_stats")
+        .select(
+          `
+          *,
+          faculties(id, name, short_name)
+        `,
+          { count: "exact" }
+        )
         .eq("university_id", universityId);
 
+      // Apply filters
       if (filters?.facultyId) {
         query = query.eq("faculty_id", filters.facultyId);
       }
@@ -52,7 +61,25 @@ export class SubjectService {
         );
       }
 
-      const { data, error, count } = await query.order("code").range(from, to);
+      // Apply sorting
+      switch (filters?.sortBy) {
+        case "highest_rating":
+          // With 999 for no reviews, they naturally go to the end when sorting desc
+          query = query.order("average_rating", { ascending: false });
+          break;
+        case "lowest_rating":
+          // With 999 for no reviews, they naturally go to the end when sorting asc
+          query = query.order("average_rating", { ascending: true });
+          break;
+        case "most_reviewed":
+          query = query.order("review_count", { ascending: false });
+          break;
+        default:
+          query = query.order("name", { ascending: true });
+          break;
+      }
+
+      const { data, error, count } = await query.range(from, to);
 
       if (error) throw error;
 
@@ -90,16 +117,43 @@ export class SubjectService {
     try {
       const supabase = await createClient();
 
-      const { data, error } = await supabase
+      console.log("Looking for subject with code:", code);
+
+      // First try exact match
+      let { data, error } = await supabase
         .from("subjects")
         .select(
           `*, faculties(id, name, short_name), universities(id, name, short_name)`
         )
         .eq("code", code)
-        .single();
+        .maybeSingle();
 
-      if (error) throw error;
+      // If no exact match, try case-insensitive match
+      if (!data && !error) {
+        console.log("No exact match found, trying case-insensitive search...");
+        const result = await supabase
+          .from("subjects")
+          .select(
+            `*, faculties(id, name, short_name), universities(id, name, short_name)`
+          )
+          .ilike("code", code)
+          .limit(1);
 
+        data = result.data?.[0] || null;
+        error = result.error;
+      }
+
+      if (error) {
+        console.error("Supabase error:", error);
+        return null;
+      }
+
+      if (!data) {
+        console.log("No subject found with code:", code);
+        return null;
+      }
+
+      console.log("Found subject:", data.code, data.name);
       return data;
     } catch (error) {
       console.error("Error fetching subject by code:", error);

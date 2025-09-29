@@ -34,8 +34,18 @@ export function SubjectFilters({
   const [selectedCategory, setSelectedCategory] = useState(
     searchParams.get("category") || ""
   );
+  const [selectedSort, setSelectedSort] = useState(
+    searchParams.get("sort") || "default"
+  );
 
   const categories = ["C1", "C2", "C3", "C4", "C5", "C6"];
+
+  const sortOptions = [
+    { value: "default", label: "Alphabetical" },
+    { value: "highest_rating", label: "Highest Rating" },
+    { value: "lowest_rating", label: "Lowest Rating" },
+    { value: "most_reviewed", label: "Most Reviewed" },
+  ];
 
   const updateFilters = (key: string, value: string) => {
     const params = new URLSearchParams(searchParams);
@@ -56,10 +66,11 @@ export function SubjectFilters({
     setSearchTerm("");
     setSelectedFaculty("");
     setSelectedCategory("");
+    setSelectedSort("default");
     router.push(`/universities/${universityName}`);
   };
 
-  const hasActiveFilters = searchTerm || selectedFaculty || selectedCategory;
+  const hasActiveFilters = searchTerm || selectedFaculty || selectedCategory || selectedSort !== "default";
 
   return (
     <div className="mb-6 space-y-4">
@@ -139,6 +150,29 @@ export function SubjectFilters({
                 }}
               >
                 {category}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        {/* Sort Filter */}
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="min-w-[140px] justify-between">
+              {sortOptions.find((s) => s.value === selectedSort)?.label || "Sort by"}
+              <ChevronDown className="ml-2 h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-[160px]">
+            {sortOptions.map((option) => (
+              <DropdownMenuItem
+                key={option.value}
+                onClick={() => {
+                  setSelectedSort(option.value);
+                  updateFilters("sort", option.value === "default" ? "" : option.value);
+                }}
+              >
+                {option.label}
               </DropdownMenuItem>
             ))}
           </DropdownMenuContent>

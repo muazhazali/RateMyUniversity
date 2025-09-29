@@ -94,7 +94,7 @@ const Hero = () => (
         </Button> */}
       </div>
     </div>
-    <section className="flex flex-col items-center justify-center gap-8 rounded-xl bg-secondary py-8 pb-18">
+    {/* <section className="flex flex-col items-center justify-center gap-8 rounded-xl bg-secondary py-8 pb-18">
       <p className="mb-0 text-balance font-medium text-muted-foreground">
         Trusted by developers from leading companies
       </p>
@@ -113,7 +113,7 @@ const Hero = () => (
           </MarqueeContent>
         </Marquee>
       </div>
-    </section>
+    </section> */}
   </div>
 );
 export default Hero;

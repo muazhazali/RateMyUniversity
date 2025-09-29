@@ -1,21 +1,35 @@
 import { Subject } from "@/types/university";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { PenTool } from "lucide-react";
+import { RippleButton } from "../ui/shadcn-io/ripple-button";
+import Link from "next/link";
 
 interface SubjectDetailsProps {
   subject: Subject;
+  universityShortName: string;
 }
 
-export function SubjectDetails({ subject }: SubjectDetailsProps) {
+export function SubjectDetails({ subject, universityShortName }: SubjectDetailsProps) {
   return (
     <Card className="mb-8 shadow-none rounded-none border-none pl-0">
       <CardHeader>
-        <h1 className="scroll-m-20 text-left text-4xl font-extrabold tracking-tight text-balance">
-          {subject.code}
-        </h1>
-        <h2 className="scroll-m-20 pb-2 text-3xl text-blue-500 font-semibold tracking-tight first:mt-0">
-          {subject.name}
-        </h2>
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="scroll-m-20 text-left text-4xl font-extrabold tracking-tight text-balance">
+              {subject.code}
+            </h1>
+            <h2 className="scroll-m-20 pb-2 text-3xl text-blue-500 font-semibold tracking-tight first:mt-0">
+              {subject.name}
+            </h2>
+          </div>
+          <Link href={`/universities/${universityShortName}/${subject.code}/write-review`}>
+            <RippleButton variant="default">
+              <PenTool size={16} />
+              Write a Review
+            </RippleButton>
+          </Link>
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

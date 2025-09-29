@@ -113,10 +113,10 @@ export interface Navbar03Props extends React.HTMLAttributes<HTMLElement> {
 
 // Default navigation links
 const defaultNavigationLinks: Navbar03NavItem[] = [
-  { href: "#", label: "Home", active: true },
-  { href: "#", label: "Features" },
-  { href: "#", label: "Pricing" },
-  { href: "#", label: "About" },
+  { href: "/", label: "Home", active: true },
+  // { href: "/universities", label: "University" },
+  // { href: "", label: "Pricing" },
+  // { href: "#", label: "About" },
 ];
 
 export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
@@ -185,7 +185,7 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
           {/* Left side */}
           <div className="flex items-center gap-2">
             {/* Mobile menu trigger */}
-            {isMobile && (
+            {/* {isMobile && (
               <Popover>
                 <PopoverTrigger asChild>
                   <Button
@@ -216,7 +216,7 @@ export const Navbar03 = React.forwardRef<HTMLElement, Navbar03Props>(
                   </NavigationMenu>
                 </PopoverContent>
               </Popover>
-            )}
+            )} */}
             {/* Main nav */}
             <div className="flex items-center gap-6">
               <Link

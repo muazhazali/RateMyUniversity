@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { SubjectDetails } from "@/components/subjects/SubjectDetails";
 import { ReviewList } from "@/components/reviews/ReviewList";
 import { ReviewStatsComponent } from "@/components/reviews/ReviewStats";
+import { PageBreadcrumb } from "@/components/ui/page-breadcrumb";
 import {
   Pagination,
   PaginationContent,
@@ -60,8 +61,17 @@ export default async function SubjectReviewPage({
   return (
     <main className="px-4 md:px-6 lg:px-15 py-8 mt-5">
       <div className="max-w-7xl mx-auto">
+        <PageBreadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Universities", href: "/universities" },
+            { label: subject.universities?.short_name || name, href: `/universities/${name}` },
+            { label: subject.code, current: true }
+          ]}
+        />
+
         {/* Subject Details Section */}
-        <SubjectDetails subject={subject} />
+        <SubjectDetails subject={subject} universityShortName={name} />
 
         {/* Reviews Section */}
         <h2 className="text-2xl font-semibold mb-4">
@@ -69,6 +79,11 @@ export default async function SubjectReviewPage({
         </h2>
 
         <div className="flex flex-col lg:flex-row gap-4">
+          {/* Review Stats - Show first on mobile, sidebar on desktop */}
+          <div className="lg:hidden">
+            <ReviewStatsComponent stats={reviewStats} />
+          </div>
+
           {/* Reviews List */}
           <div className="flex-1">
             <ReviewList reviews={reviews} />
@@ -134,8 +149,8 @@ export default async function SubjectReviewPage({
             )}
           </div>
 
-          {/* Review Stats Sidebar */}
-          <div className="lg:w-xl">
+          {/* Review Stats Sidebar - Hidden on mobile, visible on desktop */}
+          <div className="hidden lg:block lg:w-xl">
             <ReviewStatsComponent stats={reviewStats} />
           </div>
         </div>

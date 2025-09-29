@@ -5,6 +5,7 @@ import { FacultyService } from "@/services/facultyService";
 import { notFound } from "next/navigation";
 import { SubjectCard } from "@/components/subjects/SubjectsCard";
 import { SubjectFilters } from "@/components/subjects/SubjectFilters";
+import { PageBreadcrumb } from "@/components/ui/page-breadcrumb";
 import {
   Pagination,
   PaginationContent,
@@ -23,6 +24,7 @@ interface PageProps {
     faculty?: string;
     category?: string;
     search?: string;
+    sort?: string;
   }>;
 }
 
@@ -31,8 +33,8 @@ export default async function SubjectsPage({
   searchParams,
 }: PageProps) {
   const { name } = await params;
-  const { page, faculty, category, search } = await searchParams;
-  const currentPage = parseInt(page || "1", 10);
+  const { page, faculty, category, search, sort } = await searchParams;
+  const currentPage = parseInt(page || "1", 12);
 
   const university = await UniversityService.getUniversityByName(name);
 
@@ -45,10 +47,16 @@ export default async function SubjectsPage({
     facultyId: faculty,
     categoryCode: category,
     searchTerm: search,
+    sortBy: sort as
+      | "default"
+      | "highest_rating"
+      | "lowest_rating"
+      | "most_reviewed"
+      | undefined,
   };
 
   const [subjectsData, faculties] = await Promise.all([
-    SubjectService.getAllSubjects(university.id, currentPage, 10, filters),
+    SubjectService.getAllSubjects(university.id, currentPage, 12, filters),
     FacultyService.getFaculties(university.id),
   ]);
 
@@ -61,6 +69,7 @@ export default async function SubjectsPage({
     if (faculty) params.set("faculty", faculty);
     if (category) params.set("category", category);
     if (search) params.set("search", search);
+    if (sort && sort !== "default") params.set("sort", sort);
 
     const queryString = params.toString();
     return `/universities/${name}${queryString ? `?${queryString}` : ""}`;
@@ -69,6 +78,14 @@ export default async function SubjectsPage({
   return (
     <main className="px-4 md:px-6 lg:px-15 py-8 mt-5">
       <div className="max-w-7xl mx-auto">
+        <PageBreadcrumb
+          items={[
+            { label: "Home", href: "/" },
+            { label: "Universities", href: "/universities" },
+            { label: university.short_name, current: true },
+          ]}
+        />
+
         <div className="mb-8 text-center">
           <h1 className="text-4xl font-bold mb-4">{university.name}</h1>
           <p className="text-muted-foreground">

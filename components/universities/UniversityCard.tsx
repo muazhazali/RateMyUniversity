@@ -2,9 +2,6 @@ import { University } from "@/types/university";
 import Link from "next/link";
 import React from "react";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Badge } from "@/components/ui/badge";
-import clsx from "clsx"; // optional, for cleaner conditional classes
-
 interface UniversityCardProps {
   university: University;
 }
@@ -26,12 +23,12 @@ const UniversityCard = ({ university }: UniversityCardProps) => {
                 {university.name}
               </CardDescription>
             )}
-            <Badge
+            {/* <Badge
               className="h-5 min-w-5 rounded-full px-1 font-mono tabular-nums"
               variant="outline"
             >
               {university.review_count || 0}
-            </Badge>
+            </Badge> */}
           </div>
         </div>
       </CardHeader>

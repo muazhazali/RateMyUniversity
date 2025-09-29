@@ -35,6 +35,8 @@ export interface Subject {
   updated_at: string;
   faculties?: Faculty;
   universities?: University;
+  review_count?: number;
+  average_rating?: number;
 }
 
 export interface SubjectDetails extends Subject {
