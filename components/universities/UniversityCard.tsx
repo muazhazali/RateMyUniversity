@@ -10,7 +10,7 @@ const UniversityCard = ({ university }: UniversityCardProps) => {
   const isUKM = university.short_name === "UKM";
 
   const CardContent = (
-    <Card className="h-full hover:scale-[1.03] transition-transform cursor-pointer shadow-none rounded-none relative">
+    <Card className="h-full hover:scale-[1.03] transition-transform cursor-pointer shadow-sm hover:shadow-md relative">
       {/* Card Main Content */}
       <CardHeader>
         <div className="flex items-start justify-between">
@@ -35,7 +35,7 @@ const UniversityCard = ({ university }: UniversityCardProps) => {
 
       {/* Coming Soon Overlay */}
       {!isUKM && (
-        <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10 text-white text-sm font-semibold">
+        <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-10 text-white text-sm font-semibold rounded-xl">
           <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
             Coming Soon
           </h4>

@@ -79,7 +79,10 @@ const Hero = () => (
         Read and write reviews from real students.
       </p> */}
       <div className="flex items-center gap-2">
-        <Button asChild className="cursor-pointer">
+        <Button
+          asChild
+          className="cursor-pointer rounded-full h-11 px-6 text-base shadow-md hover:shadow-lg hover:scale-[1.02] transition-transform bg-gradient-to-r from-primary to-blue-600 text-primary-foreground"
+        >
           <Link href="/universities">Explore universities</Link>
         </Button>
         {/* <Button asChild variant="outline">
